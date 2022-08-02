@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Rick And Morty finish</string>
+    <string name="search_field_hint">Filter by name...</string>
 </resources>
