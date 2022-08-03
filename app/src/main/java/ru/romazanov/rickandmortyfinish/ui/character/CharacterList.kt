@@ -18,18 +18,14 @@ import javax.inject.Inject
 
 class CharacterList : Fragment() {
 
-
-
     private var _binding: FragmentCharacterListBinding? = null
     private val binding
         get() = _binding!!
 
-    private lateinit var viewModel: CharacterListViewModel
-
-    private val vw: CharacterListViewModel by viewModels() { viewModelFactory }
-
     @Inject
-    private lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val vw: CharacterListViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

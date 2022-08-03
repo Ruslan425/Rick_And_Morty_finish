@@ -14,6 +14,7 @@ import ru.romazanov.rickandmortyfinish.di.ViewModelFactory
 import ru.romazanov.rickandmortyfinish.di.ViewModelKey
 import ru.romazanov.rickandmortyfinish.ui.character.CharacterListViewModel
 import javax.inject.Provider
+import javax.inject.Scope
 import javax.inject.Singleton
 
 
@@ -33,30 +34,24 @@ class ViewModelModule {
     }
 
     @Provides
-    @Singleton
     fun provideCharacterInretactor(
         repository: Repository
     ): CharacterInteractor {
         return CharacterInteractor(repository)
     }
 
-    @Singleton
+    @Provides
+    fun provideApi(): RetrofitApi =
+        Retrofit.Builder()
+            .baseUrl("fdsfsd")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(RetrofitApi::class.java)
+
     @Provides
     fun provideRepository(
         api: RetrofitApi
     ): Repository {
         return Repository(api)
     }
-
-    @Provides
-    @Singleton
-    fun provideApi() : RetrofitApi {
-        return Retrofit.Builder()
-            .baseUrl("fdsfsd")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(RetrofitApi::class.java)
-    }
-
-
 }
