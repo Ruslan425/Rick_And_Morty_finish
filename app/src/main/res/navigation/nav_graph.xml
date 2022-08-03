@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startFragment">
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="ru.romazanov.rickandmortyfinish.ui.startScreen.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_startFragment_to_characterList"
+            app:destination="@id/characterList" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterList"
+        android:name="ru.romazanov.rickandmortyfinish.ui.character.CharacterList"
+        android:label="fragment_character_list"
+        tools:layout="@layout/fragment_character_list" >
+        <action
+            android:id="@+id/action_characterList_to_characterItemFragment"
+            app:destination="@id/characterItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterItemFragment"
+        android:name="ru.romazanov.rickandmortyfinish.ui.character.characterItem.CharacterItemFragment"
+        android:label="fragment_character_item"
+        tools:layout="@layout/fragment_character_item" />
+</navigation>

@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Rick And Morty finish</string>
     <string name="search_field_hint">Filter by name...</string>
+    <string name="logo_image">logoImage</string>
+    <string name="characters">Characters</string>
+    <string name="locations">Locations</string>
+    <string name="episodes">Episodes</string>
+    <string name="characterLogo">characterLogo</string>
+    <string name="advance_filters">ADVANCED FILTERS</string>
+    <string name="character_avatar">Character avatar</string>
 </resources>

@@ -2,6 +2,7 @@ plugins {
     id ("com.android.application")
     id ("org.jetbrains.kotlin.android")
     id ("androidx.navigation.safeargs.kotlin")
+    id("kotlin-kapt")
 }
 
 android {
@@ -40,9 +41,11 @@ android {
 
 dependencies {
 
+
     val navVersion = "2.5.1"
     val roomVersion = "2.4.2"
     val pagingVersion = "3.1.1"
+    val lifecycleVersion = "2.6.0-alpha01"
 
     implementation ("androidx.core:core-ktx:1.8.0")
     implementation ("androidx.appcompat:appcompat:1.4.2")
@@ -51,6 +54,13 @@ dependencies {
     testImplementation ("junit:junit:4.13.2")
     androidTestImplementation ("androidx.test.ext:junit:1.1.3")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
+
+    implementation ("com.google.android.material:material:1.7.0-alpha03")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+
+    implementation("androidx.activity:activity-ktx:1.5.1")
+    implementation("androidx.fragment:fragment-ktx:1.5.1")
 
     //Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
@@ -66,7 +76,7 @@ dependencies {
     implementation ("com.google.dagger:dagger:2.43")
     implementation ("com.google.dagger:dagger-android:2.35.1")
     implementation ("com.google.dagger:dagger-android-support:2.35.1")
-    annotationProcessor ("com.google.dagger:dagger-compiler:2.43")
+    kapt("com.google.dagger:dagger-compiler:2.43")
 
     // retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
@@ -84,4 +94,13 @@ dependencies {
 
     // Paging library
     implementation("androidx.paging:paging-runtime:$pagingVersion")
+
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion")
+
+
 }
+
+

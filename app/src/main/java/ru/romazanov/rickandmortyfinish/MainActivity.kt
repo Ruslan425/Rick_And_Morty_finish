@@ -2,8 +2,8 @@ package ru.romazanov.rickandmortyfinish
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import ru.romazanov.rickandmortyfinish.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,9 +13,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
-        binding.searchView.onTextChangedListener = {
-            binding.text.text = it
-        }
     }
 }

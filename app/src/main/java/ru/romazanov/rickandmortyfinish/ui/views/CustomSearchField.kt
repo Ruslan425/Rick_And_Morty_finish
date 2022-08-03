@@ -18,7 +18,7 @@ class CustomSearchField(context: Context, attrs: AttributeSet) : MaterialCardVie
 
     var onTextChangedListener: ((String) -> Unit)? = null
 
-    fun clearText() {
+    private fun clearText() {
         binding.searchField.setText("")
     }
 
