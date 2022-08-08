@@ -11,7 +11,8 @@
         tools:layout="@layout/fragment_start" >
         <action
             android:id="@+id/action_startFragment_to_characterList"
-            app:destination="@id/characterList" />
+            app:destination="@id/characterList"
+           />
     </fragment>
     <fragment
         android:id="@+id/characterList"
@@ -20,11 +21,17 @@
         tools:layout="@layout/fragment_character_list" >
         <action
             android:id="@+id/action_characterList_to_characterItemFragment"
-            app:destination="@id/characterItemFragment" />
+            app:destination="@id/characterItemFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
     </fragment>
     <fragment
         android:id="@+id/characterItemFragment"
         android:name="ru.romazanov.rickandmortyfinish.ui.character.characterItem.CharacterItemFragment"
         android:label="fragment_character_item"
-        tools:layout="@layout/fragment_character_item" />
+        tools:layout="@layout/fragment_character_item" >
+
+        <argument
+            android:name="item"
+            app:argType="ru.romazanov.rickandmortyfinish.data.models.character.Character" />
+    </fragment>
 </navigation>

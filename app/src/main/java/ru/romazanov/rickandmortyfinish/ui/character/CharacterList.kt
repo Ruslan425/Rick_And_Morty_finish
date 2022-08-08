@@ -7,13 +7,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import ru.romazanov.appComponent
 import ru.romazanov.rickandmortyfinish.databinding.FragmentCharacterListBinding
 import ru.romazanov.rickandmortyfinish.di.ViewModelFactory
-import ru.romazanov.rickandmortyfinish.ui.character.characterItem.CharacterItemViewModel
 import javax.inject.Inject
 
 class CharacterList : Fragment() {
@@ -24,13 +27,15 @@ class CharacterList : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+    private val vm: CharacterListViewModel by viewModels { viewModelFactory }
 
-    private val vw: CharacterListViewModel by viewModels { viewModelFactory }
+    private val adapter: CharacterListAdapter by lazy {
+        CharacterListAdapter(findNavController())
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        context.applicationContext.appComponent.injectCharacterListFragment(this)
-
+        context.appComponent.injectCharacterListFragment(this)
     }
 
     override fun onCreateView(
@@ -40,11 +45,36 @@ class CharacterList : Fragment() {
         _binding = FragmentCharacterListBinding.inflate(inflater, container, false)
 
         binding.customFiltersButton.setOnClickListener {
-           binding.customFiltersButton.changeIcon()
-            Toast.makeText(context, vw.test(), Toast.LENGTH_SHORT).show()
+            binding.customFiltersButton.changeIcon()
         }
+
+        data()
+        initRecyclerView()
+
         return binding.root
     }
 
+    private fun initRecyclerView() {
+        val recyclerView = binding.recyclerView
+        val linearLayoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (dy != 0) vm.list(hashMapOf())
+                }
+            }
+        )
+    }
 
+    private fun data() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            vm.listFlow.collectLatest {
+                adapter.submitData(it)
+            }
+        }
+    }
 }
+
+

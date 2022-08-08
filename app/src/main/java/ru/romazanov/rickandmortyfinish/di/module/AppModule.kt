@@ -1,25 +1,40 @@
 package ru.romazanov.rickandmortyfinish.di.module
 
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.romazanov.rickandmortyfinish.data.Repository
-import ru.romazanov.rickandmortyfinish.data.interactors.CharacterInteractor
+import ru.romazanov.rickandmortyfinish.data.interactors.character.CharacterInteractor
 import ru.romazanov.rickandmortyfinish.data.retorfit.RetrofitApi
+import ru.romazanov.rickandmortyfinish.data.room.Database
 import ru.romazanov.rickandmortyfinish.di.ViewModelFactory
 import ru.romazanov.rickandmortyfinish.di.ViewModelKey
 import ru.romazanov.rickandmortyfinish.ui.character.CharacterListViewModel
 import javax.inject.Provider
-import javax.inject.Scope
 import javax.inject.Singleton
 
 
 @Module
-class ViewModelModule {
+class AppModule {
+
+    private val baseUrl = "https://rickandmortyapi.com/api/"
+
+    @Provides
+    @Singleton
+    fun provideDatabase(application: Application): Database {
+        return Room.databaseBuilder(
+            application,
+            Database::class.java,
+            "database"
+        ).build()
+    }
 
     @Provides
     fun provideViewModelFactory(viewModels: MutableMap<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>): ViewModelFactory {
@@ -35,23 +50,25 @@ class ViewModelModule {
 
     @Provides
     fun provideCharacterInretactor(
-        repository: Repository
+        repository: Repository,
+        database: Database
     ): CharacterInteractor {
-        return CharacterInteractor(repository)
+        return CharacterInteractor(repository, database)
     }
 
     @Provides
     fun provideApi(): RetrofitApi =
         Retrofit.Builder()
-            .baseUrl("fdsfsd")
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(RetrofitApi::class.java)
 
     @Provides
     fun provideRepository(
-        api: RetrofitApi
+        api: RetrofitApi,
+        database: Database
     ): Repository {
-        return Repository(api)
+        return Repository(api, database)
     }
 }

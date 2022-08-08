@@ -8,4 +8,7 @@
     <string name="characterLogo">characterLogo</string>
     <string name="advance_filters">ADVANCED FILTERS</string>
     <string name="character_avatar">Character avatar</string>
+    <string name="go_back">GO BACK</string>
+    <string name="informations">Informations</string>
+    <string name="go_to_episode">go to episode</string>
 </resources>

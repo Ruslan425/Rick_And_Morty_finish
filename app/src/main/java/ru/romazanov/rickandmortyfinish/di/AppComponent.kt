@@ -2,15 +2,13 @@ package ru.romazanov.rickandmortyfinish.di
 
 import dagger.Component
 import ru.romazanov.rickandmortyfinish.MainActivity
-import ru.romazanov.rickandmortyfinish.di.module.ViewModelModule
+import ru.romazanov.rickandmortyfinish.di.module.AppModule
 import ru.romazanov.rickandmortyfinish.ui.character.CharacterList
-import javax.inject.Singleton
-
 
 
 @Component(
     modules = [
-        ViewModelModule::class
+        AppModule::class
     ]
 )
 interface AppComponent {

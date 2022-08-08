@@ -3,6 +3,7 @@ plugins {
     id ("org.jetbrains.kotlin.android")
     id ("androidx.navigation.safeargs.kotlin")
     id("kotlin-kapt")
+    id("kotlin-android-extensions")
 }
 
 android {
@@ -86,20 +87,20 @@ dependencies {
 
     // ROOM
     implementation ("androidx.room:room-runtime:$roomVersion")
-    annotationProcessor ("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+    kapt ("androidx.room:room-compiler:$roomVersion")
 
     //Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
     // Paging library
-    implementation("androidx.paging:paging-runtime:$pagingVersion")
+    implementation("androidx.paging:paging-runtime-ktx:$pagingVersion")
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion")
-
 
 }
 

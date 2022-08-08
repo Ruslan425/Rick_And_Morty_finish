@@ -1,15 +1,27 @@
 package ru.romazanov.rickandmortyfinish.ui.character
 
 import androidx.lifecycle.ViewModel
-import ru.romazanov.rickandmortyfinish.data.Repository
-import ru.romazanov.rickandmortyfinish.data.interactors.CharacterInteractor
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import ru.romazanov.rickandmortyfinish.data.interactors.character.CharacterInteractor
+import ru.romazanov.rickandmortyfinish.data.models.character.Character
 import javax.inject.Inject
 
+
 class CharacterListViewModel @Inject constructor(
-    val characterInteractor: CharacterInteractor
+    private val interactor: CharacterInteractor
 ) : ViewModel() {
 
-    fun test(): String {
-        return "test"
+    val listFlow: Flow<PagingData<Character>> =
+        interactor.getCharacterStream(hashMapOf()).cachedIn(viewModelScope)
+
+
+    fun list(query: Map<String, String>) {
+        interactor.getCharacterStream(query = query)
     }
+
+
 }
