@@ -7,8 +7,8 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import retrofit2.HttpException
 import ru.romazanov.rickandmortyfinish.data.Repository
-import ru.romazanov.rickandmortyfinish.data.models.character.Character
 import ru.romazanov.rickandmortyfinish.data.room.Database
+import ru.romazanov.rickandmortyfinish.data.room.entitys.CharacterEntity
 import ru.romazanov.rickandmortyfinish.data.room.entitys.RemoteKeys
 
 @OptIn(ExperimentalPagingApi::class)
@@ -16,12 +16,12 @@ class CharacterRemoteMediator(
     private val query: Map<String, String>,
     private val repository: Repository,
     private val database: Database
-) : RemoteMediator<String, Character>() {
+) : RemoteMediator<String, CharacterEntity>() {
 
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<String, Character>
+        state: PagingState<String, CharacterEntity>
     ): MediatorResult {
 
         val page: String = when (loadType) {
@@ -74,14 +74,14 @@ class CharacterRemoteMediator(
         }
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<String, Character>): RemoteKeys? {
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<String, CharacterEntity>): RemoteKeys? {
         return state.pages.lastOrNull() { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let { character ->
                 database.getRemoteKeysDao().getRemoteKeysFromId(character.id)
             }
     }
 
-    private suspend fun getRemoteKeyForFirstItem(state: PagingState<String, Character>): RemoteKeys? {
+    private suspend fun getRemoteKeyForFirstItem(state: PagingState<String, CharacterEntity>): RemoteKeys? {
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let { character ->
                 database.getRemoteKeysDao().getRemoteKeysFromId(character.id)
