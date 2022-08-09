@@ -2,7 +2,6 @@ package ru.romazanov.rickandmortyfinish.data
 
 
 import android.util.Log
-import androidx.room.RoomDatabase
 import retrofit2.Response
 import ru.romazanov.rickandmortyfinish.data.models.character.CharacterAnswer
 import ru.romazanov.rickandmortyfinish.data.retorfit.RetrofitApi
@@ -17,6 +16,5 @@ class Repository @Inject constructor(
         Log.e("API", page)
         return api.getCharacter(page, query)
     }
-
 
 }

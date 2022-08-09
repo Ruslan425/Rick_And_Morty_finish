@@ -1,20 +1,18 @@
 package ru.romazanov.rickandmortyfinish.data.room.entitys
 
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import android.util.Log
+import androidx.room.*
 import ru.romazanov.rickandmortyfinish.data.models.character.Character
 import ru.romazanov.rickandmortyfinish.data.models.character.Location
 import ru.romazanov.rickandmortyfinish.data.models.character.Origin
-
+import ru.romazanov.rickandmortyfinish.data.room.utils.ListConverter
 
 @Entity(tableName = "characters")
-class CharacterEntity(
+data class CharacterEntity(
     @PrimaryKey
-    val id: Int,
+    var id: Int,
     val created: String,
-
+    @TypeConverters(ListConverter::class)
     val episode: List<String>,
     val gender: String,
     val image: String,
@@ -30,7 +28,6 @@ class CharacterEntity(
     @ColumnInfo(name = "character_url")
     val url: String
 ) {
-
     fun toModel(): Character {
         return Character(
             id = id,

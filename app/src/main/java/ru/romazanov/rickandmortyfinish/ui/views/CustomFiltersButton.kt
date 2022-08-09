@@ -13,16 +13,7 @@ class CustomFiltersButton(context: Context, attrs: AttributeSet) :
     private val binding: CustomFilterButtonBinding =
         CustomFilterButtonBinding.inflate(LayoutInflater.from(context), this)
 
-    private var visible = true
+    val image = binding.image
 
-    fun changeIcon() {
-        visible = if (visible) {
-            binding.image.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
-            !visible
-        } else {
-            binding.image.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
-            !visible
-        }
-    }
 
 }

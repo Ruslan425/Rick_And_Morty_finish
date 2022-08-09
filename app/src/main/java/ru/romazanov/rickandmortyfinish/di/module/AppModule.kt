@@ -2,9 +2,9 @@ package ru.romazanov.rickandmortyfinish.di.module
 
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -28,9 +28,9 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(application: Application): Database {
+    fun provideDatabase(context: Context): Database {
         return Room.databaseBuilder(
-            application,
+            context,
             Database::class.java,
             "database"
         ).build()

@@ -11,4 +11,6 @@
     <string name="go_back">GO BACK</string>
     <string name="informations">Informations</string>
     <string name="go_to_episode">go to episode</string>
+    <string name="gender">Gender</string>
+    <string name="status">Status</string>
 </resources>

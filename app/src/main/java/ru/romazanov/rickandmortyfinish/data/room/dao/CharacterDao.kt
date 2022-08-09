@@ -14,11 +14,8 @@ interface CharacterDao {
 
     @Query("DELETE FROM characters")
     suspend fun deleteAll()
-
-
+    
     @Query("SELECT * FROM characters")
-    fun getAll(): PagingSource<String, CharacterEntity>
-
-
+    fun getAll(): PagingSource<Int, CharacterEntity>
 
 }

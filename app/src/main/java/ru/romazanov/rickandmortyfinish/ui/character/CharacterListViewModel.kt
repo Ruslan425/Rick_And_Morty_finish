@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.map
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.romazanov.rickandmortyfinish.data.interactors.character.CharacterInteractor
@@ -12,16 +13,12 @@ import javax.inject.Inject
 
 
 class CharacterListViewModel @Inject constructor(
-    private val interactor: CharacterInteractor
+    interactor: CharacterInteractor
 ) : ViewModel() {
 
     val listFlow: Flow<PagingData<Character>> =
-        interactor.getCharacterStream(hashMapOf()).cachedIn(viewModelScope)
-
-
-    fun list(query: Map<String, String>) {
-        interactor.getCharacterStream(query = query)
-    }
-
+        interactor.getCharacterStream(hashMapOf())
+            .map{ it -> it.map { it.toModel() }}
+            .cachedIn(viewModelScope)
 
 }

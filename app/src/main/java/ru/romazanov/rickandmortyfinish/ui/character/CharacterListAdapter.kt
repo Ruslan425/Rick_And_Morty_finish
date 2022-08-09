@@ -1,5 +1,6 @@
 package ru.romazanov.rickandmortyfinish.ui.character
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
@@ -23,14 +24,14 @@ class CharacterListAdapter(
             this.binding = binding
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterListViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = CharacterListItemBinding.inflate(layoutInflater, parent, false)
         return CharacterListViewHolder(binding)
     }
-
     override fun onBindViewHolder(holder: CharacterListViewHolder, position: Int) {
+        Log.e("ADAPTER", itemCount.toString())
+        Log.e("ADAPTER-POSITION", position.toString())
         val binding = holder.binding
         val item = getItem(position)!!
         val direction = CharacterListDirections.actionCharacterListToCharacterItemFragment(item)
@@ -44,7 +45,6 @@ class CharacterListAdapter(
             navController.navigate(direction)
         }
     }
-
     companion object {
         private val CHARACTER_COMPARATOR = object : DiffUtil.ItemCallback<Character>() {
             override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean =
@@ -54,5 +54,4 @@ class CharacterListAdapter(
                 oldItem == newItem
         }
     }
-
 }
