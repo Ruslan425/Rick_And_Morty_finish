@@ -26,13 +26,14 @@ class LocationAdapter: RecyclerView.Adapter<LocationAdapter.ViewHolder>() {
 
         binding.name.text = item.name
         binding.type.text = item.type
+        binding.id.text = item.id.toString()
 
     }
 
-    private var locationList = listOf<Location>()
+    private val locationList = mutableListOf<Location>()
 
     fun addToList(list: List<Location>) {
-        locationList = list
+        locationList += list
         notifyDataSetChanged()
     }
 

@@ -10,4 +10,5 @@ import ru.romazanov.rickandmortyfinish.data.models.location.Location
 interface LocationView: MvpView {
     fun init()
     fun addLocationList(list: List<Location>)
+    fun showError()
 }

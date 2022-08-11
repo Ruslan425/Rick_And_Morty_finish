@@ -34,7 +34,7 @@ class CharacterListAdapter(
         val item = getItem(position)!!
         val direction = CharacterListDirections.actionCharacterListToCharacterItemFragment(item)
         binding.name.text = item.name
-        binding.type.text = item.species
+        binding.specie.text = item.species
         Glide.with(binding.avatar)
             .load(item.image)
             .apply(RequestOptions.centerCropTransform())

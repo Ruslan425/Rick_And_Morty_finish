@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -55,10 +57,24 @@ class LocationFragment: MvpAppCompatFragment(), LocationView {
         BottomSheetBehavior.from(binding.standardBottomSheet).apply {
             this.state = BottomSheetBehavior.STATE_HIDDEN
         }
+        binding.recyclerView.addOnScrollListener(
+            object: RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (!recyclerView.canScrollVertically(1)) {
+                        presenter.getNextPage()
+                    }
+                }
+            }
+        )
     }
 
     override fun addLocationList(list: List<Location>) {
         adapter?.addToList(list)
+    }
+
+    override fun showError() {
+        Toast.makeText(context, "Все локации", Toast.LENGTH_SHORT).show()
     }
 
 

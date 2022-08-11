@@ -1,5 +1,6 @@
 package ru.romazanov.rickandmortyfinish.ui.character
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -15,7 +16,6 @@ import javax.inject.Inject
 class CharacterListViewModel @Inject constructor(
     val interactor: CharacterInteractor
 ) : ViewModel() {
-
 
     fun searchTest(query: Map<String, String>): Flow<PagingData<Character>> {
         return interactor.getCharacterStream(query).map { characterEntity ->

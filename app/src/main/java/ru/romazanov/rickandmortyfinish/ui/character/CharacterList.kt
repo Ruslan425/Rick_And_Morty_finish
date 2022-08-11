@@ -90,7 +90,7 @@ class CharacterList : Fragment() {
             data(query)
         }
 
-
+        data(hashMapOf())
         bottomSheetSate()
         initRecyclerView()
         return binding.root
