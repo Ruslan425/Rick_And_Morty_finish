@@ -69,7 +69,7 @@ class LocationFragment: MvpAppCompatFragment(), LocationView {
         )
     }
 
-    override fun addLocationList(list: List<Location>) {
+    override fun addLocationList(list: MutableList<Location>) {
         adapter?.addToList(list)
     }
 

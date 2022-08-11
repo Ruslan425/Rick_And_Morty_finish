@@ -30,10 +30,10 @@ class LocationAdapter: RecyclerView.Adapter<LocationAdapter.ViewHolder>() {
 
     }
 
-    private val locationList = mutableListOf<Location>()
+    private var locationList = listOf<Location>()
 
-    fun addToList(list: List<Location>) {
-        locationList += list
+    fun addToList(list: MutableList<Location>) {
+        locationList = list
         notifyDataSetChanged()
     }
 

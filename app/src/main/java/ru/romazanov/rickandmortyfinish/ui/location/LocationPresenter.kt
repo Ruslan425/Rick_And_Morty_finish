@@ -2,6 +2,7 @@ package ru.romazanov.rickandmortyfinish.ui.location
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import ru.romazanov.rickandmortyfinish.data.interactors.location.LocationInteractor
@@ -14,6 +15,10 @@ class LocationPresenter(
 
     private var lastAnswer: LocationAnswer? = null
 
+    val disposable = CompositeDisposable()
+
+    val locationList = mutableListOf<Location>()
+
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
@@ -23,12 +28,14 @@ class LocationPresenter(
             .subscribeOn(Schedulers.io())
             .subscribe { answer ->
                 lastAnswer = answer
-                addList(answer.location)
-            }
+                locationList += answer.location
+                addList(locationList)
+            }.addTo(disposable)
+
     }
 
-
     fun getNextPage() {
+        disposable.clear()
         val nextPage =
             lastAnswer?.info?.next?.let { page -> page.substringAfter("=").split("&")[0] }
         if (nextPage != null) {
@@ -38,16 +45,21 @@ class LocationPresenter(
                 .subscribeOn(Schedulers.io())
                 .subscribe { answer ->
                     lastAnswer = answer
-                    addList(answer.location)
-                }
+                    locationList += answer.location
+                    addList(locationList)
+                }.addTo(disposable)
         } else {
             viewState.showError()
         }
     }
 
-
-    private fun addList(list: List<Location>) {
+    private fun addList(list: MutableList<Location>) {
         viewState.addLocationList(list)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.dispose()
     }
 
 }

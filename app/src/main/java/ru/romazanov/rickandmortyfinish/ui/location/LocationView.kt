@@ -9,6 +9,6 @@ import ru.romazanov.rickandmortyfinish.data.models.location.Location
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface LocationView: MvpView {
     fun init()
-    fun addLocationList(list: List<Location>)
+    fun addLocationList(list: MutableList<Location>)
     fun showError()
 }
