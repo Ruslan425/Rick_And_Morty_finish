@@ -8,11 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.custom_search_field.view.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import ru.romazanov.appComponent
@@ -30,6 +32,8 @@ class CharacterList : Fragment() {
     private var _bottom: BottomSheetBehavior<FrameLayout>? = null
     private val bottom
         get() = _bottom!!
+
+    var query = mutableMapOf<String, String>()
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -55,8 +59,39 @@ class CharacterList : Fragment() {
         binding.customFiltersButton.setOnClickListener {
             bottomSheetOpenClose()
         }
+        
+        binding.searchByRadioGroup.setOnCheckedChangeListener {group, checkedId ->
+            when(checkedId) {
+                binding.searchGroupType.id ->  {
+                    binding.searchView.search_field.hint =
+                        "Filter by Type"
+                    query.put("type", "")
+                }
+                binding.searchGroupSpecies.id -> {
+                    binding.searchView.search_field.hint =
+                        "Filter by Species"
+                    query.put("species", "")
+                }
+            }
+        }
+
+        binding.searchView.search_field.doOnTextChanged { text,_, _, _ ->
+            when(binding.searchByRadioGroup.checkedRadioButtonId) {
+                binding.searchGroupType.id ->  {
+                    query.put("type", text.toString())
+                }
+                binding.searchGroupSpecies.id -> {
+                    query.put("species", text.toString())
+                }
+                binding.searchGroupName.id -> {
+
+                }
+            }
+            data(query)
+        }
+
+
         bottomSheetSate()
-        data()
         initRecyclerView()
         return binding.root
     }
@@ -68,11 +103,12 @@ class CharacterList : Fragment() {
         recyclerView.layoutManager = linearLayoutManager
     }
 
-    private fun data() {
+
+    private fun data(query: Map<String, String>) {
         viewLifecycleOwner.lifecycleScope.launch {
-            vm.listFlow.collectLatest { pagin ->
-                adapter.submitData(pagin)
-            }
+           vm.searchTest(query).collectLatest {
+               adapter.submitData(it)
+           }
         }
     }
 
@@ -96,8 +132,4 @@ class CharacterList : Fragment() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {}
         } )
     }
-
 }
-
-
-

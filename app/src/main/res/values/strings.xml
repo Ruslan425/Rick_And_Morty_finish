@@ -13,4 +13,17 @@
     <string name="go_to_episode">go to episode</string>
     <string name="gender">Gender</string>
     <string name="status">Status</string>
+    <string name="search_by">Search by...</string>
+    <string name="name">Name</string>
+    <string name="species">Species</string>
+    <string name="type">Type</string>
+    <string name="flame">flame</string>
+    <string name="male">male</string>
+    <string name="genderless">genderless</string>
+    <string name="unknown">unknown</string>
+    <string name="none">none</string>
+    <string name="alive">alive</string>
+    <string name="dead">dead</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

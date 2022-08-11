@@ -2,8 +2,8 @@ plugins {
     id ("com.android.application")
     id ("org.jetbrains.kotlin.android")
     id ("androidx.navigation.safeargs.kotlin")
-    id("kotlin-kapt")
-    id("kotlin-android-extensions")
+    id ("kotlin-kapt")
+    id ("kotlin-android-extensions")
 }
 
 android {
@@ -83,6 +83,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation ("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
 
 
     // ROOM
@@ -90,6 +91,7 @@ dependencies {
     implementation("androidx.room:room-ktx:$roomVersion")
     kapt ("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-paging:$roomVersion")
+    implementation ("androidx.room:room-rxjava3:$roomVersion")
 
     //Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
@@ -103,6 +105,16 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion")
 
+    //moxy
+    implementation ("com.github.moxy-community:moxy:2.2.2")
+    implementation ("com.github.moxy-community:moxy-ktx:2.2.2")
+    implementation ("com.github.moxy-community:moxy-androidx:2.2.2")
+    kapt ("com.github.moxy-community:moxy-compiler:2.2.2")
+
+    //rxJava
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.0")
+    implementation ("io.reactivex.rxjava3:rxjava:3.0.0")
+    implementation ("io.reactivex.rxjava3:rxkotlin:3.0.0")
 }
 
 

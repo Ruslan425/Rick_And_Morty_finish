@@ -23,9 +23,12 @@ class StartFragment : Fragment() {
     ): View {
         _binding = FragmentStartBinding.inflate(inflater, container, false)
 
-       binding.characters.setOnClickListener {
-        findNavController().navigate(R.id.action_startFragment_to_characterList)
-       }
+        binding.characters.setOnClickListener {
+            findNavController().navigate(R.id.action_startFragment_to_characterList)
+        }
+        binding.locations.setOnClickListener {
+            findNavController().navigate(R.id.action_startFragment_to_locationFragment)
+        }
         return binding.root
     }
 

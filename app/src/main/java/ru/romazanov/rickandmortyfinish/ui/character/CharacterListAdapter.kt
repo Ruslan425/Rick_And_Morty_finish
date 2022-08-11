@@ -30,13 +30,11 @@ class CharacterListAdapter(
         return CharacterListViewHolder(binding)
     }
     override fun onBindViewHolder(holder: CharacterListViewHolder, position: Int) {
-        Log.e("ADAPTER", itemCount.toString())
-        Log.e("ADAPTER-POSITION", position.toString())
         val binding = holder.binding
         val item = getItem(position)!!
         val direction = CharacterListDirections.actionCharacterListToCharacterItemFragment(item)
         binding.name.text = item.name
-        binding.species.text = item.species
+        binding.type.text = item.species
         Glide.with(binding.avatar)
             .load(item.image)
             .apply(RequestOptions.centerCropTransform())

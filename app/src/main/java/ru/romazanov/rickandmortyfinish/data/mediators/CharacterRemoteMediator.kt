@@ -36,21 +36,18 @@ class CharacterRemoteMediator(
             LoadType.REFRESH -> {
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
                 val key = remoteKeys?.nextKey?.minus(1) ?: STARTED_PAGE
-                Log.e("MEDIATOR - REFRESH", key.toString())
                 key
             }
             LoadType.APPEND -> {
                 val remoteKeys = getRemoteKeyForLastItem(state)
                 val nextKey = remoteKeys?.nextKey
                     ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
-                Log.e("MEDIATOR - APPEND", nextKey.toString())
                 nextKey
             }
             LoadType.PREPEND -> {
                 val remoteKeys = getRemoteKeyForFirstItem(state)
                 val prevKey = remoteKeys?.prevKey
                     ?: return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
-                Log.e("MEDIATOR - PREAPEND", prevKey.toString())
                 prevKey
             }
         }
@@ -72,9 +69,8 @@ class CharacterRemoteMediator(
                 val keys = repos?.map {
                     RemoteKeys(characterId = it.id, nextKey = nextKey, prevKey = prevKey)
                 }
-                val repoEntity = repos?.map { it.toEntity() }
 
-                Log.e("KEYS_LIST", "${keys?.size?: -1},\n ${repoEntity?.size?: -1}")
+                val repoEntity = repos?.map { it.toEntity() }
 
                 database.getRemoteKeysDao().addAll(keys!!)
                 database.getCharacterDao().addAll(repoEntity!!)

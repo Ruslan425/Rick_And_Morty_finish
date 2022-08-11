@@ -13,12 +13,15 @@ import javax.inject.Inject
 
 
 class CharacterListViewModel @Inject constructor(
-    interactor: CharacterInteractor
+    val interactor: CharacterInteractor
 ) : ViewModel() {
 
-    val listFlow: Flow<PagingData<Character>> =
-        interactor.getCharacterStream(hashMapOf())
-            .map{ it -> it.map { it.toModel() }}
-            .cachedIn(viewModelScope)
 
+    fun searchTest(query: Map<String, String>): Flow<PagingData<Character>> {
+        return interactor.getCharacterStream(query).map { characterEntity ->
+            characterEntity.map { it.toModel() }
+        }
+            .cachedIn(viewModelScope)
+    }
 }
+

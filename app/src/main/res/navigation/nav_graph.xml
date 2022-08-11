@@ -13,6 +13,9 @@
             android:id="@+id/action_startFragment_to_characterList"
             app:destination="@id/characterList"
            />
+        <action
+            android:id="@+id/action_startFragment_to_locationFragment"
+            app:destination="@id/locationFragment" />
     </fragment>
     <fragment
         android:id="@+id/characterList"
@@ -34,4 +37,9 @@
             android:name="item"
             app:argType="ru.romazanov.rickandmortyfinish.data.models.character.Character" />
     </fragment>
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="ru.romazanov.rickandmortyfinish.ui.location.LocationFragment"
+        android:label="fragment_location"
+        tools:layout="@layout/fragment_location" />
 </navigation>

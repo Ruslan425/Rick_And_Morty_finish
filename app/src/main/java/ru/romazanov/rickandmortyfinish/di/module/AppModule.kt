@@ -9,9 +9,11 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.romazanov.rickandmortyfinish.data.Repository
 import ru.romazanov.rickandmortyfinish.data.interactors.character.CharacterInteractor
+import ru.romazanov.rickandmortyfinish.data.interactors.location.LocationInteractor
 import ru.romazanov.rickandmortyfinish.data.retorfit.RetrofitApi
 import ru.romazanov.rickandmortyfinish.data.room.Database
 import ru.romazanov.rickandmortyfinish.di.ViewModelFactory
@@ -60,6 +62,7 @@ class AppModule {
     fun provideApi(): RetrofitApi =
         Retrofit.Builder()
             .baseUrl(baseUrl)
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(RetrofitApi::class.java)
@@ -71,4 +74,12 @@ class AppModule {
     ): Repository {
         return Repository(api, database)
     }
+
+    @Provides
+    fun provideLocationInteractor(
+        repository: Repository
+    ): LocationInteractor {
+        return LocationInteractor(repository)
+    }
+
 }

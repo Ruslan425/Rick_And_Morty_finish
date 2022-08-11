@@ -6,6 +6,7 @@ import dagger.Component
 import ru.romazanov.rickandmortyfinish.MainActivity
 import ru.romazanov.rickandmortyfinish.di.module.AppModule
 import ru.romazanov.rickandmortyfinish.ui.character.CharacterList
+import ru.romazanov.rickandmortyfinish.ui.location.LocationFragment
 import javax.inject.Singleton
 
 
@@ -29,5 +30,7 @@ interface AppComponent {
     fun injectMainActivity(mainActivity: MainActivity)
 
     fun injectCharacterListFragment(characterList: CharacterList)
+
+    fun injectLocationFragment(locationFragment: LocationFragment)
 
 }

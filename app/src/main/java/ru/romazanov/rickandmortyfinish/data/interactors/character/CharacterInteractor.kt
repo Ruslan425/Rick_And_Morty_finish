@@ -18,7 +18,7 @@ class CharacterInteractor @Inject constructor(
     fun getCharacterStream(query: Map<String, String>) =
         Pager(
             config = PagingConfig(
-                pageSize = 3,
+                pageSize = 20,
             ),
             remoteMediator = CharacterRemoteMediator(
                 query,
